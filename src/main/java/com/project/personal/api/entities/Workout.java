@@ -1,14 +1,18 @@
 package com.project.personal.api.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Workout {
+public class Workout implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +21,9 @@ public class Workout {
 	private String name;
 	private String description;
 	private String level;
+	
+	@ManyToOne
+	@JoinColumn(name = "personal_id")
 	private Personal personal;
 
 	public Workout () {

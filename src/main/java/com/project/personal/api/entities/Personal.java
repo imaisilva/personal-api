@@ -32,6 +32,9 @@ public class Personal implements Serializable{
 	@OneToMany(mappedBy = "personal")
 	private List<Client> clients = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "personal")
+	private List<Workout> workouts = new ArrayList<>();
+	
 	public Personal() {
 	}
 
