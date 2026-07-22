@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Client implements Serializable{
@@ -23,6 +25,10 @@ public class Client implements Serializable{
 	private BigDecimal weight;
 	private BigDecimal height;
 	private String objective;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	public Client() {
 	}

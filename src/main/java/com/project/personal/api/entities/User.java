@@ -24,6 +24,9 @@ public class User implements Serializable{
 	@OneToOne(mappedBy = "user")
 	private Personal personal;
 	
+	@OneToOne(mappedBy = "user")
+	private Client client;
+	
 	public User() {
 	}
 
