@@ -3,6 +3,8 @@ package com.project.personal.api.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -34,6 +37,9 @@ public class Client implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "personal_id")
 	private Personal personal;
+	
+	@OneToMany(mappedBy = "id.client")
+	private List<ClientWorkout> workouts = new ArrayList<>();
 	
 	public Client() {
 	}
@@ -112,6 +118,10 @@ public class Client implements Serializable{
 
 	public void setPersonal(Personal personal) {
 		this.personal = personal;
+	}
+
+	public List<ClientWorkout> getWorkouts() {
+		return workouts;
 	}
 
 	@Override

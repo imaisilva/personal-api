@@ -1,14 +1,21 @@
 package com.project.personal.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import com.project.personal.api.entities.enums.WorkoutLevel;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Workout implements Serializable{
@@ -20,16 +27,21 @@ public class Workout implements Serializable{
 	
 	private String name;
 	private String description;
-	private String level;
+	
+	@Enumerated(EnumType.STRING)
+	private WorkoutLevel level;
 	
 	@ManyToOne
 	@JoinColumn(name = "personal_id")
 	private Personal personal;
+	
+	@OneToMany(mappedBy = "id.workout")
+    private List<ClientWorkout> clientWorkouts = new ArrayList<>();
 
 	public Workout () {
 	}
 
-	public Workout(Long id, String name, String description, String level, Personal personal) {
+	public Workout(Long id, String name, String description, WorkoutLevel level, Personal personal) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -62,11 +74,11 @@ public class Workout implements Serializable{
 		this.description = description;
 	}
 
-	public String getLevel() {
+	public WorkoutLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(WorkoutLevel level) {
 		this.level = level;
 	}
 
@@ -76,6 +88,14 @@ public class Workout implements Serializable{
 
 	public void setPersonal(Personal personal) {
 		this.personal = personal;
+	}
+	
+	public List<ClientWorkout> getClientWorkouts() {
+		return clientWorkouts;
+	}
+	
+	public void addClientWorkout(ClientWorkout clientWorkout) {
+	    clientWorkouts.add(clientWorkout);
 	}
 
 	@Override
