@@ -3,7 +3,12 @@ package com.project.personal.api.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.project.personal.api.entities.enums.UserStatus;
+import com.project.personal.api.entities.enums.UserType;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +26,12 @@ public class User implements Serializable{
 	private String password;
 	private String phone;
 	
+	@Enumerated(EnumType.STRING)
+	private UserStatus status;
+	
+	@Enumerated(EnumType.STRING)
+	private UserType userType;
+	
 	@OneToOne(mappedBy = "user")
 	private Personal personal;
 	
@@ -30,12 +41,15 @@ public class User implements Serializable{
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String phone) {
+	public User(Long id, String name, String email, String password, String phone,
+			UserStatus status, UserType userType) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phone = phone;
+		this.status = status;
+		this.userType = userType;
 	}
 
 	public Long getId() {
@@ -76,6 +90,22 @@ public class User implements Serializable{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 
 	@Override
