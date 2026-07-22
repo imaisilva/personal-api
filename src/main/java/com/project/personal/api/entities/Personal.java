@@ -1,6 +1,8 @@
 package com.project.personal.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -25,6 +28,9 @@ public class Personal implements Serializable{
 	private String specialty;
 	private String profilePhoto;
 	private String biography;
+	
+	@OneToMany(mappedBy = "personal")
+	private List<Client> clients = new ArrayList<>();
 	
 	public Personal() {
 	}
@@ -84,6 +90,23 @@ public class Personal implements Serializable{
 
 	public void setBiography(String biography) {
 		this.biography = biography;
+	}
+	
+	public List<Client> getClients() {
+		return clients;
+	}
+	
+	public void addClient(Client client) {
+		if(!clients.contains(client)) {
+			clients.add(client);
+			client.setPersonal(this);
+		}		
+	}
+	
+	public void removeClient(Client client) {
+		if(clients.remove(client)) {
+			client.setPersonal(null);
+		}		
 	}
 
 	@Override

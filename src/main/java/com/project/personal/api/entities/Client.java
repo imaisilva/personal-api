@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -30,17 +31,23 @@ public class Client implements Serializable{
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "personal_id")
+	private Personal personal;
+	
 	public Client() {
 	}
 
 	public Client(Long id, String name, LocalDate dateOfBirth, BigDecimal weight, BigDecimal height, 
-			String objective) {
+			String objective, User user, Personal personal) {
 		this.id = id;
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 		this.weight = weight;
 		this.height = height;
 		this.objective = objective;
+		this.user = user;
+		this.personal = personal;
 	}
 
 	public Long getId() {
@@ -89,6 +96,22 @@ public class Client implements Serializable{
 
 	public void setObjective(String objective) {
 		this.objective = objective;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Personal getPersonal() {
+		return personal;
+	}
+
+	public void setPersonal(Personal personal) {
+		this.personal = personal;
 	}
 
 	@Override
